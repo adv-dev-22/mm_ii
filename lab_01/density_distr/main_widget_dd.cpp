@@ -1,5 +1,4 @@
 #include "main_widget_dd.h"
-#include "params_widget.h"
 #include "plot_graphics_scene.h"
 #include <QApplication>
 #include <QHBoxLayout>
