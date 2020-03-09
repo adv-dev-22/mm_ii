@@ -27,11 +27,13 @@ CONFIG += c++14
 SOURCES += \
         main.cpp \
         main_widget_dd.cpp \
-    plot_graphics_scene.cpp
+    plot_graphics_scene.cpp \
+    params_widget.cpp
 
 HEADERS += \
     main_widget_dd.h \
-    plot_graphics_scene.h
+    plot_graphics_scene.h \
+    params_widget.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

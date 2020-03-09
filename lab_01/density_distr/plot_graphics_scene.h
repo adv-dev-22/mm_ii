@@ -5,7 +5,7 @@
 
 class PlotGraphicsScene : public QGraphicsScene {
 public:
-    PlotGraphicsScene(QObject *parent = nullptr);
+    PlotGraphicsScene(QObject * parent = nullptr);
 
 
 private:
