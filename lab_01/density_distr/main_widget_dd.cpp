@@ -148,6 +148,12 @@ quit_button_(nullptr) {
 
     quit_button_ = new QPushButton(tr("Выход"));
     vertical_layout->addWidget(quit_button_);
+
+    // Signals and slots connections.
+    QObject::connect(quit_button_, SIGNAL(clicked()), this, SLOT(emit_quit_clicked()));
+
+    // ..
+
 }
 
 MainWidgetDD::~MainWidgetDD() {
@@ -166,3 +172,9 @@ MainWidgetDD::~MainWidgetDD() {
     clear_btn_ = nullptr;
     quit_button_ = nullptr;
 }
+
+void MainWidgetDD::emit_quit_clicked() {
+    emit quit_button_pressed();
+}
+
+// End of the file

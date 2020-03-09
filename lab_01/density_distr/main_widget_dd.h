@@ -20,6 +20,9 @@ public:
     MainWidgetDD(QWidget *parent = nullptr);
     ~MainWidgetDD();
 
+signals:
+    void quit_button_pressed();
+
 private:
     // Graphical plotting
     QGraphicsView * graphics_view_;
@@ -42,6 +45,9 @@ private:
     QPushButton * clear_btn_;
 
     QPushButton * quit_button_;
+
+private slots:
+    void emit_quit_clicked();
 };
 
 #endif // _MAIN_WIDGET_DD_H_
