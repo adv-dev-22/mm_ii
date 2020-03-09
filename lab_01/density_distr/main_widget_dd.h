@@ -2,14 +2,13 @@
 #define _MAIN_WIDGET_DD_H_
 
 #include <QWidget>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QGraphicsView>
-#include <QPushButton>
-#include <QGroupBox>
-#include <QRadioButton>
 
-class ParametersWidget;
+class QHBoxLayout;
+class QVBoxLayout;
+class QGraphicsView;
+class QPushButton;
+class QGroupBox;
+class QRadioButton;
 class PlotGraphicsScene;
 class QLabel;
 class QLineEdit;

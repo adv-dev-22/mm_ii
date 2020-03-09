@@ -2,6 +2,12 @@
 #include "params_widget.h"
 #include "plot_graphics_scene.h"
 #include <QApplication>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QGraphicsView>
+#include <QPushButton>
+#include <QGroupBox>
+#include <QRadioButton>
 #include <QRect>
 #include <QScreen>
 #include <QFormLayout>
