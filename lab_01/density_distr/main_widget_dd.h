@@ -2,6 +2,8 @@
 #define _MAIN_WIDGET_DD_H_
 
 #include <QWidget>
+#include <memory>
+#include "density_solver.h"
 
 class QHBoxLayout;
 class QVBoxLayout;
@@ -44,6 +46,9 @@ private:
     QPushButton * clear_btn_;
 
     QPushButton * quit_button_;
+
+    // Numerical data. Provides f(x) and F(x) arrays.
+    std::unique_ptr<BaseDensity> density_engine_;
 
 private slots:
     void emit_quit_clicked();

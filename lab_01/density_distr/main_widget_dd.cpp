@@ -1,5 +1,5 @@
 #include "main_widget_dd.h"
-#include "plot_graphics_scene.h"
+ #include "plot_graphics_scene.h"
 #include <QApplication>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -28,7 +28,8 @@ param_01_edit_(nullptr),
 param_02_edit_(nullptr),
 update_btn_(nullptr),
 clear_btn_(nullptr),
-quit_button_(nullptr) {
+quit_button_(nullptr),
+density_engine_(nullptr) {
 
     // Setup main widget size.
     auto screen_list = QApplication::screens();
@@ -159,6 +160,7 @@ quit_button_(nullptr) {
 
     // ..
 
+//    density_engine_ = make_unique<>
 }
 
 MainWidgetDD::~MainWidgetDD() {

@@ -27,11 +27,15 @@ CONFIG += c++14
 SOURCES += \
         main.cpp \
         main_widget_dd.cpp \
-        plot_graphics_scene.cpp
+        plot_graphics_scene.cpp \
+    density_solver.cpp \
+    density_functor.cpp
 
 HEADERS += \
     main_widget_dd.h \
-    plot_graphics_scene.h
+    plot_graphics_scene.h \
+    density_solver.h \
+    density_functor.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
