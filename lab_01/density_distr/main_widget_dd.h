@@ -41,6 +41,12 @@ private:
     QLineEdit * param_01_edit_;
     QLineEdit * param_02_edit_;
 
+    // Range
+    QLabel    * a_left_label_;
+    QLineEdit * a_left_edit_;
+    QLabel    * b_right_label_;
+    QLineEdit * b_right_edit_;
+
     // Push buttons
     QPushButton * update_btn_;
     QPushButton * clear_btn_;

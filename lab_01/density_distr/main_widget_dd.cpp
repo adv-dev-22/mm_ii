@@ -38,6 +38,10 @@ param_01_label_(nullptr),
 param_02_label_(nullptr),
 param_01_edit_(nullptr),
 param_02_edit_(nullptr),
+a_left_label_(nullptr),
+b_right_label_(nullptr),
+a_left_edit_(nullptr),
+b_right_edit_(nullptr),
 update_btn_(nullptr),
 clear_btn_(nullptr),
 quit_button_(nullptr),
@@ -66,6 +70,7 @@ density_engine_(nullptr) {
     // PlotGraphicsScene
     plotter2d_ = new QwtPlot();
     horizontal_layout->addWidget(plotter2d_,1);
+
 
     // Create control pannel layout
     auto vertical_layout = new QVBoxLayout();
@@ -126,24 +131,24 @@ density_engine_(nullptr) {
     QVBoxLayout * range_layout = new QVBoxLayout();
     // a_left
     QHBoxLayout * a_left_layout = new QHBoxLayout();
-    auto a_left_label = new QLabel(tr("a = "));
-    auto a_left_edit  = new QLineEdit();
-    a_left_edit->setFixedSize(100,30);
+    a_left_label_ = new QLabel(tr("a = "));
+    a_left_edit_  = new QLineEdit();
+    a_left_edit_->setFixedSize(100,30);
     // b_right
     QHBoxLayout * b_right_layout = new QHBoxLayout();
-    auto b_right_label = new QLabel(tr("b = "));
-    auto b_right_edit  = new QLineEdit();
-    b_right_edit->setFixedSize(100,30);
+    b_right_label_ = new QLabel(tr("b = "));
+    b_right_edit_  = new QLineEdit();
+    b_right_edit_->setFixedSize(100,30);
 
     a_left_layout->setSizeConstraint(QLayout::SetMinimumSize);
-    a_left_layout->addWidget(a_left_label, 0, Qt::AlignCenter);
-    a_left_layout->addWidget(a_left_edit);
-    a_left_edit->setValidator(new QDoubleValidator());
+    a_left_layout->addWidget(a_left_label_, 0, Qt::AlignCenter);
+    a_left_layout->addWidget(a_left_edit_);
+    a_left_edit_->setValidator(new QDoubleValidator());
 
     b_right_layout->setSizeConstraint(QLayout::SetMinimumSize);
-    b_right_layout->addWidget(b_right_label, 0, Qt::AlignCenter);
-    b_right_layout->addWidget(b_right_edit);
-    b_right_edit->setValidator(new QDoubleValidator());
+    b_right_layout->addWidget(b_right_label_, 0, Qt::AlignCenter);
+    b_right_layout->addWidget(b_right_edit_);
+    b_right_edit_->setValidator(new QDoubleValidator());
 
     range_layout->addLayout(a_left_layout);
     range_layout->addLayout(b_right_layout);
@@ -151,7 +156,7 @@ density_engine_(nullptr) {
     vertical_layout->addWidget(range_group_box);
     vertical_layout->addSpacing(32);
 
-    update_btn_ = new QPushButton(tr("Добавить график"));
+    update_btn_ = new QPushButton(tr("Построить графики"));
     vertical_layout->addWidget(update_btn_);
     vertical_layout->addSpacing(10);
 
@@ -186,6 +191,10 @@ MainWidgetDD::~MainWidgetDD() {
     param_02_label_ = nullptr;
     param_01_edit_ = nullptr;
     param_02_edit_ = nullptr;
+    a_left_label_ = nullptr;
+    a_left_edit_  = nullptr;
+    b_right_label_ = nullptr;
+    b_right_edit_  = nullptr;
     update_btn_ = nullptr;
     clear_btn_ = nullptr;
     quit_button_ = nullptr;
@@ -206,6 +215,12 @@ void MainWidgetDD::unoform_distr_radio_selected_(bool checked) {
     param_02_label_->setText(tr(""));
     param_02_label_->setDisabled(true);
     param_02_edit_->setDisabled(true);
+
+    plotter2d_->setTitle(tr("Равномерное распределение"));
+    plotter2d_->setCanvasBackground(Qt::white);
+
+    a_left_edit_->setText("0");
+    b_right_edit_->setText("1");
 }
 
 
