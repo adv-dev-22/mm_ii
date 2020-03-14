@@ -1,5 +1,16 @@
 #include "main_widget_dd.h"
- #include "plot_graphics_scene.h"
+//#include "plot_graphics_scene.h"
+
+#include <qwt_plot.h>
+#include <qwt_plot_grid.h>
+#include <qwt_legend.h>
+#include <qwt_plot_curve.h>
+#include <qwt_symbol.h>
+#include <qwt_plot_magnifier.h>
+#include <qwt_plot_panner.h>
+#include <qwt_plot_picker.h>
+#include <qwt_picker_machine.h>
+
 #include <QApplication>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -13,11 +24,12 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QDoubleValidator>
+#include <QDebug>
+
 
 MainWidgetDD::MainWidgetDD(QWidget * parent):
 QWidget(parent),
-graphics_view_(nullptr),
-gscene_(nullptr),
+plotter2d_(nullptr),
 uniform_distr_rbtn_(nullptr),
 exponent_distr_rbtn_(nullptr),
 normal_distr_rbtn_(nullptr),
@@ -52,14 +64,8 @@ density_engine_(nullptr) {
     this->setLayout(horizontal_layout);
 
     // PlotGraphicsScene
-    gscene_ = new PlotGraphicsScene();
-    gscene_->addText("Test GScene");
-
-    graphics_view_ = new QGraphicsView(gscene_);
-    graphics_view_->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-    horizontal_layout->addWidget(graphics_view_, 1);
-    graphics_view_->show();
+    plotter2d_ = new QwtPlot();
+    horizontal_layout->addWidget(plotter2d_,1);
 
     // Create control pannel layout
     auto vertical_layout = new QVBoxLayout();
@@ -84,6 +90,8 @@ density_engine_(nullptr) {
 
     // Parameters groupbox
     auto form_group_box = new QGroupBox(tr("Параметры"));
+    form_group_box->setMinimumWidth(225);
+
     QVBoxLayout * params_layout = new QVBoxLayout();
 
     // Parameter 1
@@ -156,7 +164,11 @@ density_engine_(nullptr) {
     vertical_layout->addWidget(quit_button_);
 
     // Signals and slots connections.
-    QObject::connect(quit_button_, SIGNAL(clicked()), this, SLOT(emit_quit_clicked()));
+    QObject::connect(quit_button_, SIGNAL(clicked()), this, SLOT(emit_quit_clicked_()));
+
+    QObject::connect(uniform_distr_rbtn_, SIGNAL(toggled(bool)),
+                     this, SLOT(unoform_distr_radio_selected_(bool)));
+
 
     // ..
 
@@ -165,8 +177,7 @@ density_engine_(nullptr) {
 
 MainWidgetDD::~MainWidgetDD() {
 
-    graphics_view_ = nullptr;
-    gscene_ = nullptr;
+    plotter2d_ = nullptr;
     uniform_distr_rbtn_ = nullptr;
     exponent_distr_rbtn_ = nullptr;
     normal_distr_rbtn_ = nullptr;
@@ -180,8 +191,23 @@ MainWidgetDD::~MainWidgetDD() {
     quit_button_ = nullptr;
 }
 
-void MainWidgetDD::emit_quit_clicked() {
+void MainWidgetDD::emit_quit_clicked_() {
     emit quit_button_pressed();
 }
+
+void MainWidgetDD::unoform_distr_radio_selected_(bool checked) {
+
+    if (!checked) return;
+
+    param_01_label_->setText(tr(""));
+    param_01_label_->setDisabled(true);
+    param_01_edit_->setDisabled(true);
+
+    param_02_label_->setText(tr(""));
+    param_02_label_->setDisabled(true);
+    param_02_edit_->setDisabled(true);
+}
+
+
 
 // End of the file

@@ -18,7 +18,7 @@ template <typename T>
 UnaryDensityFunctor<T>::UnaryDensityFunctor():
 BaseDensityFunctor<T>() {
 
-    std::cout << "constructor Unary F" << std::endl;
+  //  std::cout << "constructor Unary F" << std::endl;
 }
 
 //virtual
@@ -76,10 +76,12 @@ T UniformDensityFunctor<T>::value(const T x) const {
 
 //virtual
 template <typename T>
-T UniformDensityFunctor<T>::operator() (const T x) const {
+T UniformDensityFunctor<T>::operator() (const T /*unused*/) const {
+
     const T tmp_factor = b_right_ - a_left_;
     // check non zero condition
-    return 1.0 / tmp_factor;
+
+    return static_cast<T>(1.0) / tmp_factor;
 }
 
 template class UniformDensityFunctor<float>;

@@ -5,6 +5,7 @@
 #include <memory>
 #include "density_solver.h"
 
+class QwtPlot;
 class QHBoxLayout;
 class QVBoxLayout;
 class QGraphicsView;
@@ -26,8 +27,7 @@ signals:
 
 private:
     // Graphical plotting
-    QGraphicsView * graphics_view_;
-    PlotGraphicsScene * gscene_;
+    QwtPlot * plotter2d_;
 
     // Type of the distribution radio buttons etc.
     QRadioButton * uniform_distr_rbtn_;
@@ -51,7 +51,8 @@ private:
     std::unique_ptr<BaseDensity> density_engine_;
 
 private slots:
-    void emit_quit_clicked();
+    void emit_quit_clicked_();
+    void unoform_distr_radio_selected_(bool checked);
 };
 
 #endif // _MAIN_WIDGET_DD_H_
