@@ -39,13 +39,19 @@ param_02_label_(nullptr),
 param_01_edit_(nullptr),
 param_02_edit_(nullptr),
 a_left_label_(nullptr),
-b_right_label_(nullptr),
 a_left_edit_(nullptr),
+b_right_label_(nullptr),
 b_right_edit_(nullptr),
 update_btn_(nullptr),
 clear_btn_(nullptr),
 quit_button_(nullptr),
-density_engine_(nullptr) {
+n_points_(1024),
+xrange_engine_(nullptr),
+f_dens_engine_(nullptr),
+F_prob_engine_(nullptr),
+xrange_thread_(nullptr),
+f_dens_thread_(nullptr),
+F_prob_thread_(nullptr) {
 
     // Setup main widget size.
     auto screen_list = QApplication::screens();
@@ -168,16 +174,23 @@ density_engine_(nullptr) {
     quit_button_ = new QPushButton(tr("Выход"));
     vertical_layout->addWidget(quit_button_);
 
+    // Numerical data
+    // ..
+
+    // Threads
+    xrange_thread_ = std::make_unique<ComputeDensityThread>();
+    f_dens_thread_ = std::make_unique<ComputeDensityThread>();
+    F_prob_thread_ = std::make_unique<ComputeDensityThread>();
+
     // Signals and slots connections.
     QObject::connect(quit_button_, SIGNAL(clicked()), this, SLOT(emit_quit_clicked_()));
 
     QObject::connect(uniform_distr_rbtn_, SIGNAL(toggled(bool)),
                      this, SLOT(unoform_distr_radio_selected_(bool)));
 
+    QObject::connect(update_btn_, SIGNAL(clicked()), this, SLOT(draw_plot_()));
 
     // ..
-
-//    density_engine_ = make_unique<>
 }
 
 MainWidgetDD::~MainWidgetDD() {
@@ -222,6 +235,46 @@ void MainWidgetDD::unoform_distr_radio_selected_(bool checked) {
     a_left_edit_->setText("0");
     b_right_edit_->setText("1");
 }
+
+void MainWidgetDD::draw_plot_() {
+
+    if (uniform_distr_rbtn_->isChecked()) {
+        draw_uniform_plot_();
+    }
+
+    // ..
+
+
+
+}
+
+void MainWidgetDD::draw_uniform_plot_() {
+
+    const double a_left  = a_left_edit_->text().toDouble();
+    const double b_right = b_right_edit_->text().toDouble();
+
+    tuple_ttu<double> abn_range(a_left, b_right, n_points_);
+
+    xrange_engine_ = std::make_unique<UniformRange<double>>();
+    xrange_engine_->set_range(abn_range);
+
+    xrange_thread_->set_engine(xrange_engine_.get());
+    xrange_thread_->start(QThread::InheritPriority);
+
+
+
+//    const std::vector<T> & get_data() const;
+
+
+    //xrange_engine_;
+    //f_dens_engine_;
+    //F_prob_engine_
+
+//    std::unique_ptr<ComputeDensityThread> xrange_thread_;
+
+
+}
+
 
 
 

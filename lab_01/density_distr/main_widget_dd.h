@@ -3,7 +3,8 @@
 
 #include <QWidget>
 #include <memory>
-#include "density_solver.h"
+#include "density_engine.h"
+#include "compute_thread.h"
 
 class QwtPlot;
 class QHBoxLayout;
@@ -54,11 +55,24 @@ private:
     QPushButton * quit_button_;
 
     // Numerical data. Provides f(x) and F(x) arrays.
-    std::unique_ptr<BaseDensity> density_engine_;
+    const size_t n_points_;
+
+    std::unique_ptr<BaseDensityEngine<double>> xrange_engine_;
+    std::unique_ptr<BaseDensityEngine<double>> f_dens_engine_;
+    std::unique_ptr<BaseDensityEngine<double>> F_prob_engine_;
+
+    std::unique_ptr<ComputeDensityThread> xrange_thread_;
+    std::unique_ptr<ComputeDensityThread> f_dens_thread_;
+    std::unique_ptr<ComputeDensityThread> F_prob_thread_;
 
 private slots:
     void emit_quit_clicked_();
     void unoform_distr_radio_selected_(bool checked);
+    void draw_plot_();
+
+private:
+    void draw_uniform_plot_();
+
 };
 
 #endif // _MAIN_WIDGET_DD_H_
