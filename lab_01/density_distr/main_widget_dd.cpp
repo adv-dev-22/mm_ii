@@ -190,6 +190,8 @@ F_prob_thread_(nullptr) {
 
     QObject::connect(update_btn_, SIGNAL(clicked()), this, SLOT(draw_plot_()));
 
+    // connect exit and thread terminate
+
     // ..
 }
 

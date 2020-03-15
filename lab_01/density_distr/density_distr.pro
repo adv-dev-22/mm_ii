@@ -30,14 +30,16 @@ SOURCES += \
         plot_graphics_scene.cpp \
     density_functor.cpp \
     compute_thread.cpp \
-    density_engine.cpp
+    density_engine.cpp \
+    threads_stop_indicator.cpp
 
 HEADERS += \
     main_widget_dd.h \
     plot_graphics_scene.h \
     density_functor.h \
     compute_thread.h \
-    density_engine.h
+    density_engine.h \
+    threads_stop_indicator.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
