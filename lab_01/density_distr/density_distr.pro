@@ -25,9 +25,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++14 qwt
 
 SOURCES += \
-        main.cpp \
-        main_widget_dd.cpp \
-        plot_graphics_scene.cpp \
+    main.cpp \
+    main_widget_dd.cpp \
+    plot_graphics_scene.cpp \
     density_functor.cpp \
     compute_thread.cpp \
     density_engine.cpp \

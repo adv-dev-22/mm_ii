@@ -1,5 +1,4 @@
 #include "main_widget_dd.h"
-//#include "plot_graphics_scene.h"
 
 #include <qwt_plot.h>
 #include <qwt_plot_grid.h>
@@ -51,7 +50,8 @@ f_dens_engine_(nullptr),
 F_prob_engine_(nullptr),
 xrange_thread_(nullptr),
 f_dens_thread_(nullptr),
-F_prob_thread_(nullptr) {
+F_prob_thread_(nullptr),
+threads_indicator_(nullptr) {
 
     // Setup main widget size.
     auto screen_list = QApplication::screens();
@@ -182,13 +182,30 @@ F_prob_thread_(nullptr) {
     f_dens_thread_ = std::make_unique<ComputeDensityThread>();
     F_prob_thread_ = std::make_unique<ComputeDensityThread>();
 
+    threads_indicator_ = std::make_unique<ThreadsStopIndicator>();
+    threads_indicator_->set_number(1);
+    threads_indicator_->drop_counter();
+
     // Signals and slots connections.
     QObject::connect(quit_button_, SIGNAL(clicked()), this, SLOT(emit_quit_clicked_()));
 
     QObject::connect(uniform_distr_rbtn_, SIGNAL(toggled(bool)),
                      this, SLOT(unoform_distr_radio_selected_(bool)));
 
-    QObject::connect(update_btn_, SIGNAL(clicked()), this, SLOT(draw_plot_()));
+    QObject::connect(update_btn_, SIGNAL(clicked()),
+                     this, SLOT(start_plot_data_computation_()));
+
+    QObject::connect(xrange_thread_.get() ,SIGNAL(finished()),
+                     threads_indicator_.get(), SLOT(checkout()));
+
+    QObject::connect(threads_indicator_.get(), SIGNAL(all_threads_are_done()),
+                     this, SLOT(extract_data_and_draw_()));
+
+
+
+//    QObject::connect( ,SIGNAL(), , SLOT());
+
+
 
     // connect exit and thread terminate
 
@@ -238,10 +255,10 @@ void MainWidgetDD::unoform_distr_radio_selected_(bool checked) {
     b_right_edit_->setText("1");
 }
 
-void MainWidgetDD::draw_plot_() {
+void MainWidgetDD::start_plot_data_computation_() {
 
     if (uniform_distr_rbtn_->isChecked()) {
-        draw_uniform_plot_();
+        muth_compute_uniform_data_();
     }
 
     // ..
@@ -250,7 +267,7 @@ void MainWidgetDD::draw_plot_() {
 
 }
 
-void MainWidgetDD::draw_uniform_plot_() {
+void MainWidgetDD::muth_compute_uniform_data_() {
 
     const double a_left  = a_left_edit_->text().toDouble();
     const double b_right = b_right_edit_->text().toDouble();
@@ -277,6 +294,20 @@ void MainWidgetDD::draw_uniform_plot_() {
 
 }
 
+void MainWidgetDD::extract_data_and_draw_() {
+
+    // disable button plot data
+
+    qDebug() << "extract data and draw... Perfect!";
+
+
+    //xrange_engine_;
+    //f_dens_engine_;
+    //F_prob_engine_;
+
+
+
+}
 
 
 

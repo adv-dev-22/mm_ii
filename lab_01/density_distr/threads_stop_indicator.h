@@ -10,12 +10,13 @@ public:
 
     /*! Set up the number of therads. */
     void set_number(size_t number);
+    void drop_counter() noexcept;
 
 signals:
     void all_threads_are_done();
 
 public slots:
-    void checkout(int index);
+    void checkout();
 
 private:
     /*! Total number of threads waiting to be finished. */

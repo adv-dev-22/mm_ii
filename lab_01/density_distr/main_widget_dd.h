@@ -5,6 +5,7 @@
 #include <memory>
 #include "density_engine.h"
 #include "compute_thread.h"
+#include "threads_stop_indicator.h"
 
 class QwtPlot;
 class QHBoxLayout;
@@ -65,13 +66,19 @@ private:
     std::unique_ptr<ComputeDensityThread> f_dens_thread_;
     std::unique_ptr<ComputeDensityThread> F_prob_thread_;
 
+    std::unique_ptr<ThreadsStopIndicator> threads_indicator_;
+
 private slots:
     void emit_quit_clicked_();
     void unoform_distr_radio_selected_(bool checked);
-    void draw_plot_();
+    void start_plot_data_computation_();
+
+public slots:
+    void extract_data_and_draw_();
 
 private:
-    void draw_uniform_plot_();
+    void muth_compute_uniform_data_();
+    // ..
 
 };
 

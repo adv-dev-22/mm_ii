@@ -53,7 +53,7 @@ std::vector<T> BaseDensityEngine<T>::compute_functor_data_(Func & ffun) const {
         const T x_i = a_left + static_cast<T>(i) * h;
         buffer_data.at(i) = ffun(x_i);
 
-        qDebug() << buffer_data.at(i);
+        //qDebug() << buffer_data.at(i);
     }
 
     return std::move(buffer_data);
